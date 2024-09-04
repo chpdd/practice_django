@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}
+    Задания {{ semester_number }} семестра
+{% endblock %}
+
+{% block header_title %}
+    Задания {{ semester_number }} семестра
+{% endblock %}
+
+{% block aside %}
+    <nav class="aside-link">
+        <a href="{% url 'home:home' %}" class="">Главная страница</a>
+    </nav>
+    <nav class="aside-link">
+        <a href="{% url 'app1:index' %}" class="">Выбор семестра</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="tasks">
+        <h1>Задания:</h1>
+        <div class="tasks-list">
+        {% if semester_number == 3%}
+            {% for task_number in task_numbers %}
+                <a class="link-to-task" href=
+                        "{% url 'app1:task' semester_number=semester_number task_number=task_number %}"
+                >Задание {{ task_number }}</a>
+            {% endfor %}
+        {% elif semester_number == 4 %}
+            В этом семестре мы занимались бэкэндом на php пака
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
