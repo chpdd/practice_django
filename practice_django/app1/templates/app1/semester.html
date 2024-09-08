@@ -23,15 +23,16 @@
     <div class="tasks">
         <h1>Задания:</h1>
         <div class="tasks-list">
-        {% if semester_number == 3%}
-            {% for task_number in task_numbers %}
-                <a class="link-to-task" href=
-                        "{% url 'app1:task' semester_number=semester_number task_number=task_number %}"
-                >Задание {{ task_number }}</a>
+            {% for task in tasks %}
+                <a class="link-to-task" href="{{ task.url }}">
+                    {{ task.name }}
+                </a>
             {% endfor %}
-        {% elif semester_number == 4 %}
-            В этом семестре мы занимались бэкэндом на php пака
-        {% endif %}
+{#            {% for task_number in task_numbers %}#}
+{#                <a class="link-to-task" href=#}
+{#                        "{% url 'app1:task' semester_number=semester_number task_number=task_number %}"#}
+{#                >Задание {{ task_number }}</a>#}
+{#            {% endfor %}#}
         </div>
     </div>
 {% endblock %}
