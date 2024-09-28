@@ -20,21 +20,22 @@ from django.urls import path, include
 from django.apps import apps
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('app1/', include('app1.urls')),
+    path('account/', include('account.urls'))
 ]
 
-for app in apps.get_app_configs():
-    app_name = app.name
-    if app_name == "home" or "django" in app_name:
-        continue
-    urlpatterns.append(
-        path(f'{app_name}/', include(f'{app_name}.urls'))
-    )
-    # try:
-    #     reverse(f"{app_name}")
-    #     app_names.append(app_name)
-    # except NoReverseMatch:
-    #     continue
+# нельзя так делать при серьезном проекте
+# for app in apps.get_app_configs():
+#     app_name = app.name
+#     if app_name != "home" and "django" not in app_name:
+#         urlpatterns.append(
+#             path(f'{app_name}/', include(f'{app_name}.urls'))
+#         )
+#
+#     # try:
+#     #     reverse(f"{app_name}")
+#     #     app_names.append(app_name)
+#     # except NoReverseMatch:
+#     #     continue

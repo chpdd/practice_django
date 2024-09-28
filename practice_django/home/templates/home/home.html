@@ -10,6 +10,15 @@
     Главная страница
 {% endblock %}
 
+{% block aside %}
+    <nav class="aside-link">
+        <a href="{% url 'home:home' %}" class="">Главная страница</a>
+    </nav>
+    <nav class="aside-link">
+        <a href="{% url 'account:profile' %}" class="">Профиль</a>
+    </nav>
+{% endblock %}
+
 {% block content %}
     <div class="tasks">
         <h1>Список приложений:</h1>

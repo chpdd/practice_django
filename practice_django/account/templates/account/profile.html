@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block aside %}
+    <nav class="aside-link">
+        <a href="{% url 'home:home' %}" class="">Главная страница</a>
+    </nav>
+{% endblock %}
+
+{% block page_title %}
+    Профиль
+{% endblock %}
+
+{% block header_title %}
+    Профиль
+{% endblock %}
+
+{% block content %}
+    <h1 id="h1-form" class="black">Профиль:</h1>
+    <div class="tasks">
+        Имя пользователя: {{ user.username }}
+        <form method="post" action="{% url 'account:log_out' %}">
+            {% csrf_token %}
+            <div id="div-with-submit">
+                <input id="submit-request" class="div_button" type="submit" value="Выйти из аккаунта">
+            </div>
+        </form>
+    </div>
+{% endblock %}

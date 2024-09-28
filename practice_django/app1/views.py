@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, NoReverseMatch
 from django.http import HttpResponse, Http404
 from django.template.loader import get_template, TemplateDoesNotExist
 
-from .models import ApplicationModelForm
+from .forms import ApplicationModelForm
 
 
 # Create your views here.
@@ -49,7 +49,7 @@ def semester(request, semester_number):
     else:
         raise Http404("Нет семестра с таким номером")
     return render(request,
-                  template_name=f"app1/semester.html",
+                  template_name="app1/semester.html",
                   context=context)
 
 
@@ -72,7 +72,6 @@ def task(request, semester_number, task_name):
             form = ApplicationModelForm()
             context.update({'form': form, 'success_status': None})
 
-
     template_name = f"app1/sem{semester_number}/task_{task_name}.html"
     try:
         return render(request,
@@ -80,4 +79,3 @@ def task(request, semester_number, task_name):
                       context=context)
     except TemplateDoesNotExist:
         raise Http404("Нет такой задачи")
-

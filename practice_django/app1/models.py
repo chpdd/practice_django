@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 # class User(models.Model):
 #     login = models.CharField(max_length=255, null=False)
 #     password_hash = models.CharField(max_length=255, null=False)
@@ -20,7 +19,7 @@ class Application(models.Model):
     email = models.EmailField(max_length=255)
     bday = models.DateField()
     sex = models.CharField(max_length=5)
-    biography = models.TextField(max_length=512, blank=True, null=True)
+    biography = models.TextField(max_length=512, blank=True)
     prog_langs = models.ManyToManyField(ProgLang)
 
     def __str__(self):

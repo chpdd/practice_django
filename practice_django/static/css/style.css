@@ -87,6 +87,11 @@ nav.aside-link {
     border-radius: 5px;
 }
 
+a {
+    text-decoration: none;
+}
+
+
 a.link-to-task {
     font-size: 25px;
     text-align: center;
