@@ -1,8 +1,7 @@
 from django.contrib import admin
+
 from .models import ProgLang, Application
 
-
-admin.site
 
 @admin.register(ProgLang)
 class ProgLangAdmin(admin.ModelAdmin):

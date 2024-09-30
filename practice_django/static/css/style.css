@@ -61,6 +61,10 @@ footer {
     border-top-right-radius: 5px;
 }
 
+.orig-color-text {
+    color: #2d2a2e;
+}
+
 
 img.header-logo {
     height: 125px;

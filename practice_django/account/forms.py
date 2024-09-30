@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django import forms
 
 from .models import CustomUser
 
@@ -52,5 +53,28 @@ class UserAuthenticationForm(AuthenticationForm):
             raise ValidationError(
                 message="There should be no spaces in the password",
                 code="invalid password"
+            )
+        return username
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username']
+        labels = {
+            'username': 'Имя пользователя',
+        }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username').strip()
+        if self.instance.username == username:
+            raise forms.ValidationError(
+                message="That's your actual username",
+                code='user actual username'
+            )
+        if CustomUser.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError(
+                message='Username already exists',
+                code='username already exists'
             )
         return username

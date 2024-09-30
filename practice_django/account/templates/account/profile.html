@@ -3,9 +3,6 @@
 {% load static %}
 
 {% block aside %}
-    <nav class="aside-link">
-        <a href="{% url 'home:home' %}" class="">Главная страница</a>
-    </nav>
 {% endblock %}
 
 {% block page_title %}
@@ -20,6 +17,12 @@
     <h1 id="h1-form" class="black">Профиль:</h1>
     <div class="tasks">
         Имя пользователя: {{ user.username }}
+        <form method="get" action="{% url 'account:user_edit' %}">
+            {% csrf_token %}
+            <div id="div-with-submit">
+                <input class="div_button" type="submit" value="Редактировать данные">
+            </div>
+        </form>
         <form method="post" action="{% url 'account:log_out' %}">
             {% csrf_token %}
             <div id="div-with-submit">

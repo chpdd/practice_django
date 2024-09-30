@@ -36,6 +36,17 @@
 </header>
 
 <aside>
+    <nav class="aside-link">
+        <a href="{% url 'home:home' %}" class="">Главная страница</a>
+    </nav>
+    <nav class="aside-link">
+        <a href="{% url 'account:profile' %}" class="">Профиль</a>
+    </nav>
+    {% if user.is_superuser %}
+        <nav class="aside-link">
+            <a href="{% url 'admin:index' %}" class="">Админ-панель</a>
+        </nav>
+    {% endif %}
     {% block aside %}
         {#                    В дочернем классе здесь ссылки aside страницы#}
     {% endblock %}
