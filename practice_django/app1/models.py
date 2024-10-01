@@ -1,11 +1,6 @@
 from django.db import models
 
 
-# class User(models.Model):
-#     login = models.CharField(max_length=255, null=False)
-#     password_hash = models.CharField(max_length=255, null=False)
-
-
 class ProgLang(models.Model):
     prog_lang_name = models.CharField(max_length=64)
 

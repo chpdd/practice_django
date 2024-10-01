@@ -27,6 +27,11 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     form_class = UserEditForm
     success_url = reverse_lazy('account:profile')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        return context
+
     def get_object(self, queryset=None):
         return self.request.user
 
