@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class ProgLang(models.Model):
@@ -16,6 +17,7 @@ class Application(models.Model):
     sex = models.CharField(max_length=5)
     biography = models.TextField(max_length=512, blank=True)
     prog_langs = models.ManyToManyField(ProgLang)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return (f"fio: {self.fio}, telephone: {self.telephone}, email: {self.bday},"

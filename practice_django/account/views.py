@@ -27,11 +27,6 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     form_class = UserEditForm
     success_url = reverse_lazy('account:profile')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context)
-        return context
-
     def get_object(self, queryset=None):
         return self.request.user
 
@@ -42,7 +37,7 @@ class SignUpView(AnonymousRequiredMixin, FormView):
     success_url = reverse_lazy('account:profile')
 
     def form_valid(self, form):
-        user = form.save(commit=False)
+        user = form.save()
         login(self.request, user)
         return super().form_valid(form)
 

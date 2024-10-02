@@ -1,11 +1,14 @@
 from django.shortcuts import render, reverse, NoReverseMatch
 from django.http import HttpResponse, Http404
 from django.template.loader import get_template, TemplateDoesNotExist
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, UpdateView
 from django.views.generic.base import ContextMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from .forms import ApplicationModelForm
+from .models import Application
 
 
 # Create your views here.
@@ -80,20 +83,29 @@ class TaskView(TemplateView):
         return context
 
 
-class TaskFormView(FormView):
+class TaskFormView(LoginRequiredMixin, UpdateView):
     template_name = 'app1/sem4/task_form.html'
     form_class = ApplicationModelForm
+    model = Application
+    login_url = 'account:sign_up'
     success_url = reverse_lazy('app1:task', kwargs={'semester_number': 4, 'task_name': 'form'})
     extra_context = {
         'semester_number': 4,
         'task_name': 'form'
     }
 
+    def get_object(self, queryset=None):
+        try:
+            return self.model.objects.get(user=self.request.user)
+        except self.model.DoesNotExist:
+            return self.model(user=self.request.user)
+
     def form_valid(self, form):
-        form.save()
-        self.extra_context.update({'success_status': True})
+        application = form.save(commit=False)
+        application.user = self.request.user
+        # application.save()
+        messages.success(self.request, 'Данные успешно сохранены, спасибо!')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        self.extra_context.update({'success_status': False})
         return super().form_invalid(form)
